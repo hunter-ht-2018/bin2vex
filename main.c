@@ -19,17 +19,20 @@ size_t msg_capacity = 0, msg_current_size = 0;
 
 jmp_buf jumpout;
 VexControl vc;
-int main(){
+
+int main(int argc, char** argv){
+    
     void (*init)();
     IRSB (*lift)(VexArch guest,
-    VexArchInfo archinfo,
-    unsigned char *insn_start,
-    unsigned long long insn_addr,
-    unsigned int max_insns,
-    unsigned int max_bytes,
-    int opt_level,
-    int traceflags,
-    int allow_lookback);
+        VexArchInfo archinfo,
+        unsigned char *insn_start,
+        unsigned long long insn_addr,
+        unsigned int max_insns,
+        unsigned int max_bytes,
+        int opt_level,
+        int traceflags,
+        int allow_lookback);
+
     IRSB *irsb;
 
     //import bin_flow to data
@@ -58,7 +61,9 @@ int main(){
     vex_init();
     printf("before vex_lift.\n");
     irsb = vex_lift(VexArchAMD64, vai_host, buf_array, 0, 99, 5000, 1, 0, 0);
+    
     ppIRSB(irsb);
+
     printf("finished.\n");
     return 0;
 }
