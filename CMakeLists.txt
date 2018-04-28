@@ -6,7 +6,7 @@ set (Tutorial_VERSION_MINOR 0)
 #include_directories ("${PROJECT_SOURCE_DIR}/pyvex_c")
 #add_subdirectory (pyvex_c)
 set(CMAKE_C_STANDARD 99)
-
+add_compile_options("-g")
 
 #4.27
 include_directories(${PROJECT_SOURCE_DIR}/pyvex/pyvex_c)
@@ -14,7 +14,7 @@ link_directories(${PROJECT_SOURCE_DIR}/pyvex/pyvex_c)
 link_libraries(${PROJECT_SOURCE_DIR}/pyvex/pyvex_c/libpyvex.so)
 
 
-add_executable(bin2vex main.c)
+add_executable(bin2vex main.c utils.c)
 
 target_link_libraries (bin2vex ${CMAKE_DL_LIBS})
 target_link_libraries (bin2vex ${PROJECT_SOURCE_DIR}/pyvex/pyvex_c/libpyvex.so)

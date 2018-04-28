@@ -4,6 +4,8 @@
 #include <pyvex.h>
 #include <setjmp.h>
 #include <string.h>
+#include <stdlib.h>
+#include "utils.h"
 
 char* BIN_FLOW_PATH = "log_ls.out";
 int BUFF_AREA;
@@ -20,6 +22,10 @@ size_t msg_capacity = 0, msg_current_size = 0;
 jmp_buf jumpout;
 VexControl vc;
 
+void dump_arch_info(VexArchInfo vai) {
+    printf("hwcaps = %d\n", vai.hwcaps);
+}
+
 int main(int argc, char** argv){
     
     void (*init)();
@@ -34,34 +40,35 @@ int main(int argc, char** argv){
         int allow_lookback);
 
     IRSB *irsb;
-
-    //import bin_flow to data
-    FILE *in ;
-    unsigned char buf_array[65536]={'\0'};
-    unsigned char buf_temp[512]={'\0'};
-    int inx=0;
-
-    printf("try to open binary file: \n");
-
-    in = fopen(BIN_FLOW_PATH,"r");
-
-    while(!feof(in)&&inx<=65536)
-    {
-
-
-        fread(buf_temp,512,1,in);
-
-        array_merge(buf_array,buf_temp,inx);
-        inx+=512;
+    if(argc <= 1) {
+        printf("usage: %s <inst_binary_file>\n", argv[0]);
+        exit(0);
     }
-
+    
+    //import bin_flow to data
+    char* bin_file = argv[1];
+    printf("load binary file: %s\n", bin_file);
+    size_t file_size;
+    uint8_t* inst_data = load_file_data(bin_file, &file_size);
+    if(inst_data != NULL) {
+        printf("Load binary file OK, file size = %d\n", file_size);
+    }
+    else {
+        printf("load binary file failed.\n");
+        exit(-1);
+    }
 
     //init and lift
     printf("before vex init.\n");
     vex_init();
     printf("before vex_lift.\n");
-    irsb = vex_lift(VexArchAMD64, vai_host, buf_array, 0, 99, 5000, 1, 0, 0);
-    
+    LibVEX_default_VexArchInfo(&vai_host);   
+    irsb = vex_lift(VexArchAMD64, vai_host, inst_data, 0x400400, 2, file_size, 1, 0, 0);
+    if(irsb == NULL){
+        fprintf(stderr, "vex_lift error.\n");
+        exit(-1);
+    }
+
     ppIRSB(irsb);
 
     printf("finished.\n");
