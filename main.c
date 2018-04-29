@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <malloc.h>
+//#include <malloc.h>
 #include <libvex.h>
 #include <pyvex.h>
 #include <setjmp.h>
@@ -27,7 +27,7 @@ void dump_arch_info(VexArchInfo vai) {
 }
 
 int main(int argc, char** argv){
-    
+
     void (*init)();
     IRSB (*lift)(VexArch guest,
         VexArchInfo archinfo,
@@ -44,7 +44,7 @@ int main(int argc, char** argv){
         printf("usage: %s <inst_binary_file>\n", argv[0]);
         exit(0);
     }
-    
+
     //import bin_flow to data
     char* bin_file = argv[1];
     printf("load binary file: %s\n", bin_file);
@@ -62,7 +62,7 @@ int main(int argc, char** argv){
     printf("before vex init.\n");
     vex_init();
     printf("before vex_lift.\n");
-    LibVEX_default_VexArchInfo(&vai_host);   
+    LibVEX_default_VexArchInfo(&vai_host);
     irsb = vex_lift(VexArchAMD64, vai_host, inst_data, 0x400400, 2, file_size, 1, 0, 0);
     if(irsb == NULL){
         fprintf(stderr, "vex_lift error.\n");
