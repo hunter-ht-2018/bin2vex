@@ -62,8 +62,9 @@ int main(int argc, char** argv){
     printf("before vex init.\n");
     vex_init();
     printf("before vex_lift.\n");
-    LibVEX_default_VexArchInfo(&vai_host);
-    irsb = vex_lift(VexArchAMD64, vai_host, inst_data, 0x400400, 2, file_size, 1, 0, 0);
+    //LibVEX_default_VexArchInfo(&vai_host);
+
+    irsb = vex_lift(VexArchAMD64, vai_host, inst_data, 0x400400, 1, 5000, 0, 0, 0);
     if(irsb == NULL){
         fprintf(stderr, "vex_lift error.\n");
         exit(-1);

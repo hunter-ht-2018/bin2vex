@@ -6,11 +6,11 @@ all: vex
 ## Step 1: A bunch of defines
 ##
 
-ifeq ($(MULTIARCH),1)
+#ifeq ($(MULTIARCH),1)
 LIB_OBJS = $(NORMAL_OBJS) $(MULTIARCH_OBJS)
-else
-LIB_OBJS = $(NORMAL_OBJS) $(SINGLEARCH_OBJS)
-endif
+#else
+#LIB_OBJS = $(NORMAL_OBJS) $(SINGLEARCH_OBJS)
+#endif
 
 # NOTE: GNU make will automatically set CC and AR, so these conditional
 # assignments will never do anything. just here for posterity.
@@ -37,7 +37,7 @@ CFLAGS := -g -Ipub -Ipriv \
 ifeq ($(DEBUG),1)
 CFLAGS += -g
 else
-CFLAGS += -O2
+CFLAGS += -O0
 endif
 
 # gcc requires -malign-double to compile consistently

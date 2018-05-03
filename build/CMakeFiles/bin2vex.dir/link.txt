@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/bin2vex.dir/main.c.o CMakeFiles/bin2vex.dir/utils.c.o  -o bin2vex  -L/home/cx/workspace/bin2vex/pyvex/pyvex_c -Wl,-rpath,/home/cx/workspace/bin2vex/pyvex/pyvex_c: -lpyvex 

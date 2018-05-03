@@ -1,3 +1,3 @@
 CWD=`pwd`
-cd vex && make
-cd ${CWD}/pyvex/pyvex_c && make
+cd vex && make clean && make
+cd ${CWD}/pyvex/pyvex_c &&make clean&& make
