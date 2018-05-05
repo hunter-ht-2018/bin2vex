@@ -11,12 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1edf96cb-ad5a-486f-9b99-19b4e8ae3775" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyvex/pyvex_c/pyvex.c" beforeDir="false" afterPath="$PROJECT_DIR$/pyvex/pyvex_c/pyvex.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vex/priv/ir_defs.c" beforeDir="false" afterPath="$PROJECT_DIR$/vex/priv/ir_defs.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vex/priv/main_util.c" beforeDir="false" afterPath="$PROJECT_DIR$/vex/priv/main_util.c" afterDir="false" />
-    </list>
+    <list default="true" id="1edf96cb-ad5a-486f-9b99-19b4e8ae3775" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,8 +26,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="69" column="17" lean-forward="true" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
+            <state relative-caret-position="251">
+              <caret line="77" column="19" lean-forward="true" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
               <folding>
                 <element signature="e#41#60#0" expanded="true" />
               </folding>
@@ -270,12 +265,12 @@
       <option name="presentableId" value="Default" />
       <updated>1525222380280</updated>
       <workItem from="1525222381501" duration="698000" />
-      <workItem from="1525225385905" duration="19426000" />
+      <workItem from="1525225385905" duration="20061000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20124000" />
+    <option name="totallyTimeSpent" value="20759000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -554,8 +549,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="69" column="17" lean-forward="true" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
+        <state relative-caret-position="251">
+          <caret line="77" column="19" lean-forward="true" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
           <folding>
             <element signature="e#41#60#0" expanded="true" />
           </folding>
