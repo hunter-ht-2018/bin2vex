@@ -71,7 +71,12 @@ int main(int argc, char** argv){
     }
 
     ppIRSB(irsb);
-
+    /*print msg_buffer (irsb)*/
+    int i ;
+    for(i=0;i<strlen(msg_buffer);i++)
+    {
+        putchar(msg_buffer[i]);
+    }
     printf("finished.\n");
     return 0;
 }

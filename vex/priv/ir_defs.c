@@ -1720,6 +1720,7 @@ void ppIRTypeEnv ( const IRTypeEnv* env )
 void ppIRSB ( const IRSB* bb )
 {
    Int i;
+
    vex_printf("IRSB {\n");
    ppIRTypeEnv(bb->tyenv);
    vex_printf("\n");
@@ -1733,6 +1734,12 @@ void ppIRSB ( const IRSB* bb )
    vex_printf( "; exit-");
    ppIRJumpKind(bb->jumpkind);
    vex_printf( "\n}\n");
+   /*cx add   for print*/
+   /*for(i=0;i<vex_strlen(msg_buffer);i++)
+   {
+      putchar(msg_buffer[i]);
+   }*/
+
 }
 
 

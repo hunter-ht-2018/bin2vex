@@ -515,7 +515,7 @@ static void add_to_myprintf_buf ( HChar c )
 static UInt vex_vprintf ( const HChar* format, va_list vargs )
 {
    UInt ret;
-   
+   int i=0;
    n_myprintf_buf = 0;
    myprintf_buf[n_myprintf_buf] = 0;      
    ret = vprintf_wrk ( add_to_myprintf_buf, format, vargs );

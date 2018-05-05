@@ -63,6 +63,7 @@ static void failure_exit(void) {
 }
 
 static void log_bytes(const HChar* bytes, SizeT nbytes) {
+
 	if (msg_buffer == NULL) {
 		msg_buffer = malloc(nbytes);
 		msg_capacity = nbytes;
