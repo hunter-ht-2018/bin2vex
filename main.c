@@ -2,6 +2,8 @@
 //#include <malloc.h>
 #include <libvex.h>
 #include <pyvex.h>
+
+#include <main_globals.h>
 #include <setjmp.h>
 #include <string.h>
 #include <stdlib.h>
@@ -9,12 +11,18 @@
 
 char* BIN_FLOW_PATH = "log_ls.out";
 int BUFF_AREA;
-VexArchInfo         vai_host;
+VexArchInfo         vai_guest;
 VexGuestExtents     vge;
 VexTranslateArgs    vta;
 VexTranslateResult  vtr;
 VexAbiInfo	        vbi;
 VexArch             arch;
+
+/*static*/
+/*void log_bytes ( const HChar* bytes, SizeT nbytes )*/
+/*{*/
+   /*fwrite ( bytes, 1, nbytes, stdout );*/
+/*}*/
 
 char *msg_buffer = NULL;
 size_t msg_capacity = 0, msg_current_size = 0;
@@ -62,16 +70,22 @@ int main(int argc, char** argv){
     printf("before vex init.\n");
     vex_init();
     printf("before vex_lift.\n");
-    LibVEX_default_VexArchInfo(&vai_host);
-    irsb = vex_lift(VexArchAMD64, vai_host, inst_data, 0x400400, 2, file_size, 1, 0, 0);
+    LibVEX_default_VexArchInfo(&vai_guest);
+    vai_guest.endness = 0x601;
+    vta.archinfo_host.hwcaps = 4064;
+    irsb = vex_lift(VexArchAMD64, vai_guest, inst_data, 0x400400, 1, file_size, 1, VEX_TRACE_FE|VEX_TRACE_OPT1|VEX_TRACE_INST|VEX_TRACE_OPT2|VEX_TRACE_ASM/*255 to trace all*/, 0);
     if(irsb == NULL){
         fprintf(stderr, "vex_lift error.\n");
         exit(-1);
     }
-
+    
     ppIRSB(irsb);
-
-    printf("finished.\n");
+/*    int i;*/
+    /*for(i=0;i<strlen(msg_buffer);i++)*/
+    /*{*/
+        /*putchar(msg_buffer[i]);*/
+    /*}*/
+    /*printf("finished.\n");*/
     return 0;
 }
 

@@ -25,7 +25,7 @@ AR=ar
 VEX_INCLUDE_PATH=../../vex/pub
 VEX_LIB_PATH=../../vex
 INCFLAGS=-I $(VEX_INCLUDE_PATH)
-CFLAGS=-g -O0 -shared -fPIC -std=c99 $(INCFLAGS)
+CFLAGS=-g -O2 -shared -fPIC -std=c99 $(INCFLAGS)
 
 OBJECTS=pyvex.o logging.o
 

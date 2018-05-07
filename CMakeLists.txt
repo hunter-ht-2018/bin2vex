@@ -8,6 +8,7 @@ add_compile_options("-g")
 
 #4.27
 include_directories(${PROJECT_SOURCE_DIR}/vex/pub)
+include_directories(${PROJECT_SOURCE_DIR}/vex/priv)
 include_directories(${PROJECT_SOURCE_DIR}/pyvex/pyvex_c)
 link_directories(${PROJECT_SOURCE_DIR}/pyvex/pyvex_c)
 

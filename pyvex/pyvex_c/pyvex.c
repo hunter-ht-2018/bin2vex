@@ -76,6 +76,7 @@ static void log_bytes(const HChar* bytes, SizeT nbytes) {
 
 	memcpy(&msg_buffer[msg_current_size], bytes, nbytes);
 	msg_current_size += nbytes;
+    fwrite( bytes, 1, nbytes, stdout);
 }
 
 void clear_log() {
@@ -276,9 +277,7 @@ static void vex_prepare_vbi(VexArch arch, VexAbiInfo *vbi) {
 			break;
 	}
 }
-void dump_arch_info(VexArchInfo vai) {
-    printf("hwcaps = %d\n", vai.hwcaps);
-}
+
 //----------------------------------------------------------------------
 // Main entry point. Do a lift.
 //----------------------------------------------------------------------
@@ -293,11 +292,9 @@ IRSB *vex_lift(
 		int traceflags,
 		int allow_lookback) {
 	VexRegisterUpdates pxControl;
-    
+
 	vex_prepare_vai(guest, &archinfo);
 	vex_prepare_vbi(guest, &vbi);
-    
-    dump_arch_info(archinfo);
 
 	pyvex_debug("Guest arch: %d\n", guest);
 	pyvex_debug("Guest arch hwcaps: %08x\n", archinfo.hwcaps);
