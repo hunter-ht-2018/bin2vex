@@ -4,9 +4,11 @@ export MULTIARCH=1
 export DEBUG=1
 myfile="./Makefile"
 CWD=`pwd`
-cd vex
+cd ${CWD}/vex
 if [ ! -f "$myfile" ]; then
     cp Makefile-gcc makefile
 fi
-make
-cd ${CWD}/pyvex/pyvex_c && make
+make clean && make
+
+cd ${CWD}/pyvex/pyvex_c && make clean && make
+
