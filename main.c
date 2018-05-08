@@ -10,6 +10,7 @@
 #include "utils.h"
 
 char* BIN_FLOW_PATH = "log_ls.out";
+#define MAX_INST_BYTES  16
 int BUFF_AREA;
 VexArchInfo         vai_guest;
 VexGuestExtents     vge;
@@ -73,7 +74,7 @@ int main(int argc, char** argv){
     LibVEX_default_VexArchInfo(&vai_guest);
     vai_guest.endness = 0x601;
     vta.archinfo_host.hwcaps = 4064;
-    irsb = vex_lift(VexArchAMD64, vai_guest, inst_data, 0x400400, 1, file_size, 1, VEX_TRACE_FE|VEX_TRACE_OPT1|VEX_TRACE_INST|VEX_TRACE_OPT2|VEX_TRACE_ASM/*255 to trace all*/, 0);
+    irsb = vex_lift(VexArchAMD64, vai_guest, inst_data, 0x400400, 1, MAX_INST_BYTES, 1, VEX_TRACE_FE|VEX_TRACE_OPT1|VEX_TRACE_INST|VEX_TRACE_OPT2|VEX_TRACE_ASM/*255 to trace all*/, 0);
     if(irsb == NULL){
         fprintf(stderr, "vex_lift error.\n");
         exit(-1);
