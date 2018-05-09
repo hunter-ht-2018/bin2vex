@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 project(bin2vex C)
 # The version number.
 set (Tutorial_VERSION_MAJOR 1)
@@ -22,7 +22,7 @@ ADD_LIBRARY(vex_lib STATIC IMPORTED)
 SET_TARGET_PROPERTIES(vex_lib PROPERTIES
         IMPORTED_LOCATION ${vex_lib_PATH})
 
-add_executable(bin2vex main.c utils.c)
+add_executable(bin2vex main.c bin2vex.c utils.c)
 
 #target_link_libraries (bin2vex ${CMAKE_DL_LIBS})
 target_link_libraries (bin2vex pyvex)
