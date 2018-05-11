@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(bin2vex C)
+#project(bin2vex C)
 # The version number.
 set (Tutorial_VERSION_MAJOR 1)
 set (Tutorial_VERSION_MINOR 0)
