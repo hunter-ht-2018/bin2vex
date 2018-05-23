@@ -49,11 +49,15 @@ int main(int argc, char** argv){
         int allow_lookback);
 
     IRSB *irsb;
+    uint32_t inst_num = 0;
     if(argc <= 1) {
-        printf("usage: %s <inst_binary_file>\n", argv[0]);
+        printf("usage: %s <inst_binary_file> [inst_num]\n", argv[0]);
         exit(0);
     }
-
+    if(argc >= 3) {
+        inst_num = atoi(argv[2]);
+        printf("decode first %d instructions.\n", inst_num);
+     }
     //import bin_flow to data
     char* bin_file = argv[1];
     printf("load binary file: %s\n", bin_file);
@@ -68,25 +72,33 @@ int main(int argc, char** argv){
     }
 
     init_bin2vex(VexArchAMD64);
-
+    int64_t code_size = file_size;
     uint64_t inst_addr = 0x400400;
-    for(int i = 0; i < 10; i ++) {
+    int i = 0;
+    while(1) {
+        if(inst_num != 0 && i >= inst_num) break;
+        if(code_size <= 0) {
+            printf("all code decoded, break.\n");
+            break;
+        }
     	printf("\nInstruction %d: \n", i);
     	irsb = bin2vex(inst_data, inst_addr);
-    	disassemble_inst(inst_data, file_size, inst_addr);
-    	ppIRSB(irsb);
+    	char* dis = disassemble_inst(inst_data, code_size, inst_addr);
+        if(dis != NULL) printf(dis);
+        ppIRSB(irsb);
 
     	for(int j = 0; j < irsb->stmts_used; j ++) {
     		IRStmt* stmt = irsb->stmts[j];
     		if(stmt->tag == Ist_IMark) {
     			inst_data += stmt->Ist.IMark.len;
     			inst_addr += stmt->Ist.IMark.len;
+                code_size -= stmt->Ist.IMark.len;
     		}
-    		ppIRStmt(stmt);
-    		printf("\n");
+    		//ppIRStmt(stmt);
+    		//printf("\n");
     	}
     	printf("next instruction addr = %x\n", inst_addr);
-
+        i ++;
     }
 
     return 0;

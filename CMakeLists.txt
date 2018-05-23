@@ -26,13 +26,13 @@ SET_TARGET_PROPERTIES(vex_lib PROPERTIES
 add_library(bin2vex bin2vex.c)
 
 #target_link_libraries (bin2vex ${CMAKE_DL_LIBS})
-target_link_libraries (bin2vex pyvex)
+target_link_libraries (bin2vex pyvex capstone)
 
-add_executable(test_bin2vex main.c utils.c)
-target_link_libraries (test_bin2vex bin2vex)
+add_executable(disbin2vex main.c utils.c)
+target_link_libraries (disbin2vex bin2vex)
 
 # add the install targets
-install (TARGETS test_bin2vex DESTINATION bin)
+install (TARGETS disbin2vex DESTINATION bin)
 install (TARGETS bin2vex DESTINATION bin)
 install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/mainconfig.h"
         DESTINATION include)

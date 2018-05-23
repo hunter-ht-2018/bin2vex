@@ -4,6 +4,7 @@
 #include <main_globals.h>
 #include <stdint.h>
 #include <capstone/capstone.h>
+#include <stdlib.h>
 
 #define MAX_INST_BYTES  16
 static VexArchInfo         vai_guest;
@@ -28,7 +29,9 @@ IRSB* bin2vex(uint8_t* inst_data, uint64_t inst_addr) {
 	return irsb;
 }
 
-void disassemble_inst(const uint8_t* code, code_size, uint64_t base_address){
+char* disassemble_inst(const uint8_t* code, uint32_t code_size, uint64_t base_address){
+    static char dis_str[1024];
+    char* ret = NULL;
 	csh handle;
 	cs_insn *insn = NULL;
 
@@ -37,9 +40,13 @@ void disassemble_inst(const uint8_t* code, code_size, uint64_t base_address){
 
 	int count = cs_disasm(handle, code, code_size, base_address, 1, &insn);
 	if (count > 0) {
-		printf("%lx:\t(%d)\t%s\t%s\t\t\n", insn->address, type, insn->mnemonic, insn->op_str);
+        sprintf(dis_str, "%lx \t%s\t%s\t\t\n", insn->address, insn->mnemonic, insn->op_str);
+        ret = dis_str;
+	    cs_free(insn, 1);
 	}
-	cs_free(insn, 1);
+    else {
+        printf("ERROR: Failed to disassemble given code!\n");
+    }
 	cs_close(&handle);
-
+    return ret;
 }
