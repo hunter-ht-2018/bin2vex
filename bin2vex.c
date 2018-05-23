@@ -3,6 +3,8 @@
 #include <pyvex.h>
 #include <main_globals.h>
 #include <stdint.h>
+#include <capstone/capstone.h>
+
 #define MAX_INST_BYTES  16
 static VexArchInfo         vai_guest;
 static VexArch 			   arch_guest;
@@ -24,4 +26,20 @@ IRSB* bin2vex(uint8_t* inst_data, uint64_t inst_addr) {
 		exit(-1);
 	}
 	return irsb;
+}
+
+void disassemble_inst(const uint8_t* code, code_size, uint64_t base_address){
+	csh handle;
+	cs_insn *insn = NULL;
+
+	if (cs_open(CS_ARCH_X86, CS_MODE_64, &handle) != CS_ERR_OK)
+		return false;
+
+	int count = cs_disasm(handle, code, code_size, base_address, 1, &insn);
+	if (count > 0) {
+		printf("%lx:\t(%d)\t%s\t%s\t\t\n", insn->address, type, insn->mnemonic, insn->op_str);
+	}
+	cs_free(insn, 1);
+	cs_close(&handle);
+
 }

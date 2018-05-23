@@ -73,7 +73,7 @@ int main(int argc, char** argv){
     for(int i = 0; i < 10; i ++) {
     	printf("\nInstruction %d: \n", i);
     	irsb = bin2vex(inst_data, inst_addr);
-
+    	disassemble_inst(inst_data, file_size, inst_addr);
     	ppIRSB(irsb);
 
     	for(int j = 0; j < irsb->stmts_used; j ++) {
