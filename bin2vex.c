@@ -29,6 +29,10 @@ IRSB* bin2vex(uint8_t* inst_data, uint64_t inst_addr) {
 	return irsb;
 }
 
+void print_irsb(IRSB* irsb) {
+	ppIRSB(irsb);
+}
+
 char* disassemble_inst(const uint8_t* code, uint32_t code_size, uint64_t base_address){
     static char dis_str[1024];
     char* ret = NULL;

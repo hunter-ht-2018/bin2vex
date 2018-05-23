@@ -34,5 +34,5 @@ target_link_libraries (disbin2vex bin2vex)
 # add the install targets
 install (TARGETS disbin2vex DESTINATION bin)
 install (TARGETS bin2vex DESTINATION bin)
-install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/mainconfig.h"
-        DESTINATION include)
+install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/mainconfig.h" DESTINATION include)
+install (FILES "${CMAKE_CURRENT_SOURCE_DIR}/pyvex/pyvex_c/libpyvex.so" DESTINATION .)
