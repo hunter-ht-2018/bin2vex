@@ -50,16 +50,16 @@ int main(int argc, char** argv){
 
     IRSB *irsb;
     uint32_t inst_num = 0;
-    if(argc <= 1) {
-        printf("usage: %s <inst_binary_file> [inst_num]\n", argv[0]);
+    if(argc <= 3) {
+        printf("usage: %s [x86|x64|ARM] <inst_binary_file> [inst_num]\n", argv[0]);
         exit(0);
     }
-    if(argc >= 3) {
-        inst_num = atoi(argv[2]);
-        printf("decode first %d instructions.\n", inst_num);
-     }
+    inst_num = atoi(argv[3]);
+    char* arch = argv[1];
+    printf("target arch is %s.\n", arch);
+    printf("decode first %d instructions.\n", inst_num);
     //import bin_flow to data
-    char* bin_file = argv[1];
+    char* bin_file = argv[2];
     printf("load binary file: %s\n", bin_file);
     size_t file_size;
     uint8_t* inst_data = load_file_data(bin_file, &file_size);
@@ -70,8 +70,23 @@ int main(int argc, char** argv){
         printf("load binary file failed.\n");
         exit(-1);
     }
+    switch(arch[1])
+    {
+    	case '8':
+    		init_bin2vex(VexArchX86);
+    		break;
+    	case '6':
+    		init_bin2vex(VexArchAMD64);
+    		break;
+    	case 'R':
+    	case 'r':
+    		init_bin2vex(VexArchARM);
+    		break;
+    	default:
+    		printf("unsupported architecture.\n");
+    		exit(0);    		
+    }
 
-    init_bin2vex(VexArchAMD64);
     int64_t code_size = file_size;
     uint64_t inst_addr = 0x400400;
     int i = 0;
@@ -83,7 +98,7 @@ int main(int argc, char** argv){
         }
     	printf("\nInstruction %d: \n", i);
     	irsb = bin2vex(inst_data, inst_addr);
-    	char* dis = disassemble_inst(inst_data, code_size, inst_addr);
+    	char* dis = disassemble_inst(inst_data, code_size, inst_addr, arch);
         if(dis != NULL) printf(dis);
         ppIRSB(irsb);
 

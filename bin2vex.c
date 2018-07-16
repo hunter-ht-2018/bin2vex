@@ -33,14 +33,34 @@ void print_irsb(IRSB* irsb) {
 	ppIRSB(irsb);
 }
 
-char* disassemble_inst(const uint8_t* code, uint32_t code_size, uint64_t base_address){
+char* disassemble_inst(const uint8_t* code, uint32_t code_size, uint64_t base_address, char* arch){
     static char dis_str[1024];
     char* ret = NULL;
 	csh handle;
 	cs_insn *insn = NULL;
 
-	if (cs_open(CS_ARCH_X86, CS_MODE_64, &handle) != CS_ERR_OK)
-		return false;
+	switch(arch[1])
+    {
+    	case '8':
+    		if (cs_open(CS_ARCH_X86, CS_MODE_32, &handle) != CS_ERR_OK)
+    			return false;
+    		break;
+    	case '6':
+    		if (cs_open(CS_ARCH_X86, CS_MODE_64, &handle) != CS_ERR_OK)
+    			return false;
+    		break;
+    	case 'R':
+    	case 'r':
+    		if (cs_open(CS_ARCH_ARM, CS_MODE_ARM, &handle) != CS_ERR_OK)
+    			return false;
+    		break;
+    	default:
+    		printf("unsupported architecture.\n");
+    		return false;	
+    }
+
+	// if (cs_open(CS_ARCH_X86, CS_MODE_64, &handle) != CS_ERR_OK)
+		// return false;
 
 	int count = cs_disasm(handle, code, code_size, base_address, 1, &insn);
 	if (count > 0) {
